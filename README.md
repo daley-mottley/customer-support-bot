@@ -2,7 +2,7 @@
 
 
 <span align="center">
-       <img src="https://github.com/dmotts/customer-support-bot/blob/main/assets/images/logo-white.png" alt="logo" height="150" width="150" />
+       <img src="https://github.com/daley-mottley/customer-support-bot/blob/main/assets/images/logo-white.png" alt="logo" height="150" width="150" />
 </span>
 <br> 
 ☀️ Customer Support Bot ☀️ 
@@ -11,32 +11,32 @@
 </h1>
 
 <p align="center">
-<a href="https://github.com/dmotts/customer-support-bot/issues/new?assignees=&labels=enhancement&projects=&template=feature_request.yml&title=%5BFeature+Request%5D+">Request Feature</a>
+<a href="https://github.com/daley-mottley/customer-support-bot/issues/new?assignees=&labels=enhancement&projects=&template=feature_request.yml&title=%5BFeature+Request%5D+">Request Feature</a>
      ·
     <a href="https://shorturl.at/AZvWp" target="blank">View Demo</a>
     ·
-    <a href="https://github.com/dmotts/customer-support-bot/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml&title=%5BBug%5D+">Report Bug</a>
+    <a href="https://github.com/daley-mottley/customer-support-bot/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml&title=%5BBug%5D+">Report Bug</a>
  
 </p>
 
-<p align="center"><a href="https://github.com/dmotts/customer-support-bot/blob/main/CONTRIBUTING.md">Contributing Guidelines & Code of Conduct</a></p>
+<p align="center"><a href="https://github.com/daley-mottley/customer-support-bot/blob/main/CONTRIBUTING.md">Contributing Guidelines & Code of Conduct</a></p>
 
 <div align="center">
 <p>
 
 [![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)
-![GitHub forks](https://img.shields.io/github/forks/dmotts/customer-support-bot)
-![GitHub Repo stars](https://img.shields.io/github/stars/dmotts/customer-support-bot)
-![GitHub contributors](https://img.shields.io/github/contributors/dmotts/customer-support-bot)
-![GitHub last commit](https://img.shields.io/github/last-commit/dmotts/customer-support-bot)
-![GitHub repo size](https://img.shields.io/github/repo-size/dmotts/customer-support-bot)
-![GitHub total lines](https://sloc.xyz/github/dmotts/customer-support-bot)
-![Github](https://img.shields.io/github/license/dmotts/customer-support-bot)
-![GitHub issues](https://img.shields.io/github/issues/dmotts/customer-support-bot)
-![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/dmotts/customer-support-bot)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/dmotts/customer-support-bot)
-![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/dmotts/customer-support-bot)
+![GitHub forks](https://img.shields.io/github/forks/daley-mottley/customer-support-bot)
+![GitHub Repo stars](https://img.shields.io/github/stars/daley-mottley/customer-support-bot)
+![GitHub contributors](https://img.shields.io/github/contributors/daley-mottley/customer-support-bot)
+![GitHub last commit](https://img.shields.io/github/last-commit/daley-mottley/customer-support-bot)
+![GitHub repo size](https://img.shields.io/github/repo-size/daley-mottley/customer-support-bot)
+![GitHub total lines](https://sloc.xyz/github/daley-mottley/customer-support-bot)
+![Github](https://img.shields.io/github/license/daley-mottley/customer-support-bot)
+![GitHub issues](https://img.shields.io/github/issues/daley-mottley/customer-support-bot)
+![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/daley-mottley/customer-support-bot)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/daley-mottley/customer-support-bot)
+![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/daley-mottley/customer-support-bot)
 </p>
 </div>
 
@@ -84,7 +84,7 @@ You can install the **Customer Support Bot** plugin in two ways:
 
 ### 1. Download from GitHub
 
-- Go to the [GitHub repository](https://github.com/dmotts/customer-support-bot) and download the repository as a ZIP file.
+- Go to the [GitHub repository](https://github.com/daley-mottley/customer-support-bot) and download the repository as a ZIP file.
 - Navigate to your WordPress admin dashboard.
 - Go to **Plugins > Add New > Upload Plugin**.
 - Upload the ZIP file and click **Install Now**.
@@ -94,7 +94,7 @@ You can install the **Customer Support Bot** plugin in two ways:
 
 Alternatively, you can clone the repository using Git:
 
-1. Clone the repository: `git clone https://github.com/dmotts/customer-support-bot.git`
+1. Clone the repository: `git clone https://github.com/daley-mottley/customer-support-bot.git`
 
 2. Navigate to your WordPress plugin directory (usually located at `/wp-content/plugins/`).
 
@@ -121,7 +121,7 @@ Alternatively, you can clone the repository using Git:
 
 ## Report A Bug 🪰
 
-If you encounter any issues or have questions, feel free to [open an issue](https://github.com/dmotts/customer-support-bot/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml&title=%5BBug%5D+) or reach out to the maintainers.
+If you encounter any issues or have questions, feel free to [open an issue](https://github.com/daley-mottley/customer-support-bot/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml&title=%5BBug%5D+) or reach out to the maintainers.
 
 <a name="contributions"></a>
 ## Contributions 🧑‍🔧👷‍♀️🏗️🏢
@@ -140,14 +140,14 @@ To contribute:
 
 5) Open a pull request.
 
-<p align="center" ><strong><em>Please read our <a href="https://github.com/dmotts/customer-support-bot/blob/main/CONTRIBUTING.md" >Contributing Guidelines</a> to get started!</em></strong> 🚀</p>
+<p align="center" ><strong><em>Please read our <a href="https://github.com/daley-mottley/customer-support-bot/blob/main/CONTRIBUTING.md" >Contributing Guidelines</a> to get started!</em></strong> 🚀</p>
 
 <a name="contributors"></a>
 <h2 align="center">Say 'Hi' To Our Contributors!</h2>
 
 <p align="center">
-  <a href="https://github.com/dmotts">
-    <img src="https://github.com/dmotts.png" width="100" height="100" style="border-radius: 50%;" alt="dmotts"/>
+  <a href="https://github.com/daley-mottley">
+    <img src="https://github.com/daley-mottley.png" width="100" height="100" style="border-radius: 50%;" alt="daley-mottley"/>
   </a>
   <a href="https://github.com/mostafahanafi">
     <img src="https://github.com/mostafahanafi.png" width="100" height="100" style="border-radius: 50%;" alt="mostafahanafi"/>
