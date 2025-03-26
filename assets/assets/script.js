@@ -5,35 +5,29 @@ if (typeof axios === "undefined") {
 
 class Chatbot {
   constructor() {
-    // Fetch bot settings and security nonce from localized script variables (vacw_settings)
-    this.botAvatar = vacw_settings.avatar_url || "default-avatar.png"; // Bot avatar from plugin settings
+    this.botAvatar = vacw_settings.avatar_url || "default-avatar.png";
     this.botGreeting =
-      vacw_settings.bot_greeting || "Hi! How can I assist you today?"; // Bot greeting from settings
-    this.ajaxUrl = vacw_settings.ajax_url; // URL for handling AJAX requests
-    this.securityNonce = vacw_settings.security; // Security nonce for AJAX requests
-    this.isRunning = false; // Flag to prevent multiple simultaneous requests
-    this.setupEventListeners(); // Initialize event listeners for user interaction
-    this.greetingAppended = false; // Flag to check if greeting message is appended
+      vacw_settings.bot_greeting || "Hi! How can I assist you today?";
+    this.ajaxUrl = vacw_settings.ajax_url;
+    this.securityNonce = vacw_settings.security;
+    this.isRunning = false;
+    this.setupEventListeners();
+    this.greetingAppended = false;
   }
 
-  // Set up event listeners for user actions
   setupEventListeners() {
-    // Trigger sending a message when the user presses 'Enter'
     document.getElementById("message").addEventListener("keyup", (event) => {
       if (event.key === "Enter") {
         event.preventDefault();
-        this.sendMessage(); // Trigger message sending
+        this.sendMessage();
       }
     });
 
-    // Toggle the chatbot visibility (open/close)
     document.getElementById("chatbot_toggle").onclick =
       this.toggleChatbot.bind(this);
-    // Send the message when the user clicks on the send button
     document.querySelector(".input-send").onclick = this.sendMessage.bind(this);
   }
 
-  // Toggle the chatbot's visibility (open/close)
   toggleChatbot() {
     const chatbot = document.getElementById("chatbot");
     const toggleButton = document.getElementById("chatbot_toggle");
@@ -42,149 +36,126 @@ class Chatbot {
       chatbot.classList.remove("collapsed");
       toggleButton.children[0].style.display = "none";
       toggleButton.children[1].style.display = "";
-      // only append greeting message one time
       if (!this.greetingAppended) {
         this.greetingAppended = true;
         setTimeout(
           () => this.appendMessage(this.botGreeting, "received"),
           1000
-        ); // Display greeting after a short delay
+        );
       }
     } else {
       chatbot.classList.add("collapsed");
-      toggleButton.children[0].style.display = ""; // Show open icon
-      toggleButton.children[1].style.display = "none"; // Hide close icon
+      toggleButton.children[0].style.display = "";
+      toggleButton.children[1].style.display = "none";
     }
   }
 
-  // Send the user's message to the backend and display the bot's response
   async sendMessage() {
-    if (this.isRunning) return; // Prevent multiple requests
+    if (this.isRunning) return;
 
     const userMessage = document.getElementById("message").value.trim();
-    if (!userMessage) return; // Do nothing if the message is empty
+    if (!userMessage) return;
 
-    this.isRunning = true; // Set the flag to indicate a request is in progress
-    this.appendMessage(userMessage, "sent"); // Display the user's message in the chat window
-    this.appendLoader(); // Show a loading indicator while waiting for the bot's response
+    this.isRunning = true;
+    this.appendMessage(userMessage, "sent");
+    this.appendLoader();
 
     try {
-      // Send a POST request to the backend using Axios
       const response = await axios.post(this.ajaxUrl, {
-        action: "vacw_get_bot_response", // Backend action hook
-        message: userMessage, // User's message
-        security: this.securityNonce, // Security nonce for the request
+        action: "vacw_get_bot_response",
+        message: userMessage,
+        security: this.securityNonce,
       });
 
-      this.removeLoader(); // Remove the loading indicator after getting the response
+      this.removeLoader();
 
       if (response.data.success) {
-        this.appendMessage(response.data.data.content, "received"); // Display the bot's response
+        this.appendMessage(response.data.data.content, "received");
       } else {
-        this.appendMessage(
-          "Sorry, there was an error processing your request.",
-          "received"
-        ); // Display error message
+        this.appendMessage(response.data.data || "Sorry, there was an error processing your request.", "received");
       }
     } catch (error) {
-      console.error(
-        "Error Details:",
-        error.response ? error.response : error.message
-      ); // Better error logging
+      console.error("Error Details:", error.response ? error.response : error.message);
       this.removeLoader();
-      this.appendMessage(
-        "Sorry, there was an error processing your request.",
-        "received"
-      );
+      const errorMessage = error.response?.data?.data || "Sorry, there was an error processing your request.";
+      this.appendMessage(errorMessage, "received");
     }
 
-    this.isRunning = false; // Reset the flag to allow further requests
-    document.getElementById("message").value = ""; // Clear the input field after sending the message
+    this.isRunning = false;
+    document.getElementById("message").value = "";
   }
 
-  // Append a message to the chat area
   appendMessage(msg, type) {
-    const messageBox = document.getElementById("message-box"); // Chatbox element where messages are displayed
+    const messageBox = document.getElementById("message-box");
     const div = document.createElement("div");
     div.className = "chat-message-div";
 
     if (type === "received") {
-      // Add the bot's avatar for received messages
       const avatarDiv = document.createElement("div");
       avatarDiv.className = "avatar";
       const avatarImg = document.createElement("img");
-      avatarImg.src = this.botAvatar; // Bot avatar URL
-      avatarImg.alt = "Bot Avatar"; // Alt text for the avatar image
-      avatarImg.className = "avatar-img"; // Class for styling the avatar image
-      avatarDiv.appendChild(avatarImg); // Add the image to the avatar div
-      div.appendChild(avatarDiv); // Add the avatar div to the message div
+      avatarImg.src = this.botAvatar;
+      avatarImg.alt = "Bot Avatar";
+      avatarImg.className = "avatar-img";
+      avatarDiv.appendChild(avatarImg);
+      div.appendChild(avatarDiv);
     }
 
-    // Create the message bubble
     const messageDiv = document.createElement("div");
-    messageDiv.className = `chat-message-${type}`; // Use different classes for sent and received messages
-    messageDiv.textContent = msg; // Set the message content
-    messageDiv.style.opacity = "0"; // Set opacity to 0 for fade-in effect
-    div.appendChild(messageDiv); // Add the message to the div
+    messageDiv.className = `chat-message-${type}`;
+    messageDiv.textContent = msg;
+    messageDiv.style.opacity = "0";
+    div.appendChild(messageDiv);
 
-    // Append the message to the chatbox
     messageBox.appendChild(div);
-    messageBox.scrollTop = messageBox.scrollHeight; // Scroll to the bottom of the chat area
+    messageBox.scrollTop = messageBox.scrollHeight;
 
-    // Fade-in effect for the message
     setTimeout(() => {
       messageDiv.style.opacity = "1";
-    }, 50); // Short delay to trigger the transition
+    }, 50);
 
     if (type === "sent") {
-      document.getElementById("message").value = ""; // Clear the input field after sending the message
+      document.getElementById("message").value = "";
     }
   }
 
-  // Display a loading indicator while waiting for the bot's response
   appendLoader() {
-    const messageBox = document.getElementById("message-box"); // Chatbox element
+    const messageBox = document.getElementById("message-box");
     const div = document.createElement("div");
-    div.className = "chat-message-div"; // Wrapper for the loading indicator
+    div.className = "chat-message-div";
 
-    // Create the avatar div and image for the loading message
     const avatarDiv = document.createElement("div");
-    avatarDiv.className = "avatar"; // Class for the avatar container
+    avatarDiv.className = "avatar";
     const avatarImg = document.createElement("img");
-    avatarImg.src = this.botAvatar; // Bot's avatar URL
-    avatarImg.alt = "Bot Avatar"; // Accessibility alt text
-    avatarImg.className = "avatar-img"; // Avatar image styling class
-    avatarDiv.appendChild(avatarImg); // Append the image to the avatar div
+    avatarImg.src = this.botAvatar;
+    avatarImg.alt = "Bot Avatar";
+    avatarImg.className = "avatar-img";
+    avatarDiv.appendChild(avatarImg);
 
-    // Create the loading animation (three dots)
     const loaderMessageDiv = document.createElement("div");
-    loaderMessageDiv.className = "chat-message-received"; // Same class as bot's messages
+    loaderMessageDiv.className = "chat-message-received";
     loaderMessageDiv.innerHTML = `
             <span class="loader">
                 <span class="loader__dot"></span>
                 <span class="loader__dot"></span>
                 <span class="loader__dot"></span>
-            </span>`; // Loader animation HTML
-    // Append the avatar and loader to the message div
+            </span>`;
     div.appendChild(avatarDiv);
     div.appendChild(loaderMessageDiv);
 
-    // Append the loading message to the chatbox
     messageBox.appendChild(div);
-    messageBox.scrollTop = messageBox.scrollHeight; // Scroll to the bottom of the chat area
+    messageBox.scrollTop = messageBox.scrollHeight;
   }
 
-  // Remove the loading indicator after the bot's response is received
   removeLoader() {
-    const loaderDiv = document.querySelector(".chat-message-received .loader"); // Find the loader
+    const loaderDiv = document.querySelector(".chat-message-received .loader");
     if (loaderDiv) {
-      const parentDiv = loaderDiv.closest(".chat-message-div"); // Get the parent container
-      parentDiv.remove(); // Remove the loading message
+      const parentDiv = loaderDiv.closest(".chat-message-div");
+      parentDiv.remove();
     }
   }
 }
 
-// Initialize the chatbot when the page is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
-  new Chatbot(); // Create a new instance of the Chatbot class
+  new Chatbot();
 });
