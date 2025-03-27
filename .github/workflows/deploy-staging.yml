@@ -13,8 +13,6 @@ jobs:
       name: Staging
       url: https://staging-customer-support-bot.nichesite.org  
     steps:
-
-    steps:
       - name: Checkout code
         uses: actions/checkout@v2
 

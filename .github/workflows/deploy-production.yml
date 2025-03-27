@@ -13,8 +13,6 @@ jobs:
       name: Production
       url: http://customer-support-bot.nichesite.org
     steps:
-
-    steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
