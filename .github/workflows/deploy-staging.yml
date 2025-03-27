@@ -21,4 +21,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }} 
           password: ${{ secrets.FTP_PASSWORD }}  
           local-dir: ./  
-          server-dir: /staging-customer-support-bot.nichesite.org/htdocs/wp-content/plugins/staging-customer-support-bot/
+          server-dir: /staging-customer-support-bot.nichesite.org/htdocs/wp-content/plugins/customer-support-bot/
