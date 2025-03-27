@@ -1,0 +1,24 @@
+name: Deploy Staging
+
+on:
+  push:
+    branches:
+       - feature/*
+
+jobs:
+  deploy:
+    name: Deploy WordPress Plugin via FTP
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Upload files via FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.3.1
+        with:
+          server: ftpupload.net  
+          username: ${{ secrets.FTP_USERNAME }} 
+          password: ${{ secrets.FTP_PASSWORD }}  
+          local-dir: ./  
+          server-dir: /staging-customer-support-bot.nichesite.org/htdocs/wp-content/plugins/staging-customer-support-bot/
