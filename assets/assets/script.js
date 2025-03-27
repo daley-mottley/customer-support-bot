@@ -1,4 +1,4 @@
-*// Ensure that Axios is loaded
+// Ensure that Axios is loaded
 if (typeof axios === "undefined") {
   console.error("Axios is not loaded. Please make sure Axios is included.");
 }
