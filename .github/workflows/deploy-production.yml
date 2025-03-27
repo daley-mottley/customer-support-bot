@@ -1,4 +1,4 @@
-name: Deploy Demo
+name: Deploy Production Demo
 
 on:
   push:
@@ -9,6 +9,10 @@ jobs:
   deploy:
     name: Deploy WordPress Plugin via FTP
     runs-on: ubuntu-latest
+    environment:
+      name: Production
+      url: http://customer-support-bot.nichesite.org
+    steps:
 
     steps:
       - name: Checkout code

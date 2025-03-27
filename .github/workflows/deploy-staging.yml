@@ -9,6 +9,10 @@ jobs:
   deploy:
     name: Deploy WordPress Plugin via FTP
     runs-on: ubuntu-latest
+    environment:
+      name: Staging
+      url: https://staging-customer-support-bot.nichesite.org  
+    steps:
 
     steps:
       - name: Checkout code
