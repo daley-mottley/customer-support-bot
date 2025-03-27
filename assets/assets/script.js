@@ -1,4 +1,4 @@
-// Ensure that Axios is loaded
+*// Ensure that Axios is loaded
 if (typeof axios === "undefined") {
   console.error("Axios is not loaded. Please make sure Axios is included.");
 }
@@ -75,7 +75,7 @@ class Chatbot {
         this.appendMessage(response.data.data || "Sorry, there was an error processing your request.", "received");
       }
     } catch (error) {
-      console.error("Error Details:", error.response ? error.response : error.message);
+      console.error("Error:", error.response ? error.response : error.message);
       this.removeLoader();
       const errorMessage = error.response?.data?.data || "Sorry, there was an error processing your request.";
       this.appendMessage(errorMessage, "received");
