@@ -1,12 +1,12 @@
+// --- File: includes/logger.php ---
 <?php
-// Exit if accessed directly
-if (!defined('ABSPATH')) {
-    exit;
-}
+if (!defined('ABSPATH')) exit;
 
-// Custom logging function for the plugin
-function vacw_log($message, $level = 'info') {
-    if (WP_DEBUG) {
-        error_log("[$level] $message");
+if (!function_exists('vacw_log')) {
+    function vacw_log($message, $level = 'info') {
+        if (defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+            $log_message = "[" . date("Y-m-d H:i:s") . "] [" . strtoupper($level) . "] " . (is_string($message) ? $message : print_r($message, true));
+            error_log($log_message . "\n", 3, WP_CONTENT_DIR . '/debug.log');
+        }
     }
 }
