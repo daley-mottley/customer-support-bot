@@ -5,11 +5,18 @@ if (typeof axios === "undefined") {
 
 class Chatbot {
   constructor() {
+    // Check if vacw_settings is defined to avoid undefined errors
+    if (typeof vacw_settings === "undefined") {
+      console.error("vacw_settings is not defined. Please check the plugin configuration.");
+      return;
+    }
     this.botAvatar = vacw_settings.avatar_url || "default-avatar.png";
     this.botGreeting =
       vacw_settings.bot_greeting || "Hi! How can I assist you today?";
     this.ajaxUrl = vacw_settings.ajax_url;
     this.securityNonce = vacw_settings.security;
+    // Log the nonce to verify it's being set correctly
+    console.log("Security nonce:", this.securityNonce);
     this.isRunning = false;
     this.setupEventListeners();
     this.greetingAppended = false;
@@ -61,10 +68,23 @@ class Chatbot {
     this.appendLoader();
 
     try {
-      const response = await axios.post(this.ajaxUrl, {
+      // Create form data to match WordPress AJAX expectations
+      const formData = new URLSearchParams();
+      formData.append("action", "vacw_get_bot_response");
+      formData.append("message", userMessage);
+      formData.append("security", this.securityNonce);
+
+      // Log the data being sent for debugging
+      console.log("Sending data:", {
         action: "vacw_get_bot_response",
         message: userMessage,
         security: this.securityNonce,
+      });
+
+      const response = await axios.post(this.ajaxUrl, formData, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
       });
 
       this.removeLoader();
@@ -72,12 +92,21 @@ class Chatbot {
       if (response.data.success) {
         this.appendMessage(response.data.data.content, "received");
       } else {
-        this.appendMessage(response.data.data || "Sorry, there was an error processing your request.", "received");
+        this.appendMessage(
+          response.data.data || "Sorry, there was an error processing your request.",
+          "received"
+        );
       }
     } catch (error) {
-      console.error("Error:", error.response ? error.response : error.message);
+      // Enhanced error logging to capture detailed response from server
+      console.error(
+        "Error details:",
+        error.response ? error.response.data : error.message
+      );
       this.removeLoader();
-      const errorMessage = error.response?.data?.data || "Sorry, there was an error processing your request.";
+      const errorMessage =
+        error.response?.data?.data ||
+        "Sorry, there was an error processing your request.";
       this.appendMessage(errorMessage, "received");
     }
 
